@@ -1,30 +1,32 @@
 import { useEffect, useState } from "react";
 
 // 如果 value 为 null 或者 undefined，!value 返回 true
-export const isFalsy = (value) => (value === 0 ? false : !value);
+export const isFalsy = (value: any) => (value === 0 ? false : !value);
 
 // 在一个函数里，改变传入的对象本身是不好的
-export const cleanObject = (obj) => {
+export const cleanObject = (obj: object) => {
   // Object.assign({}, obj)
   const result = { ...obj };
 
   Object.keys(result).forEach((key) => {
+    // @ts-ignore
     const value = result[key];
     // 如果 value 为 null 或者 undefined，就应该删除这个 param，不向后端传
     if (isFalsy(value)) {
+      // @ts-ignore
       delete result[key];
     }
   });
   return result;
 };
 
-export const useMount = (callback) => {
+export const useMount = (callback: () => void) => {
   useEffect(() => {
     callback();
   }, []);
 };
 
-export const useDebounce = (value, delay) => {
+export const useDebounce = (value: any, delay?: number) => {
   const [debouncedValue, setDebouncedValue] = useState(value);
 
   useEffect(() => {
