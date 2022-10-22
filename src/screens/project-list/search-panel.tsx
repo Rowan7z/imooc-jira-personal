@@ -1,6 +1,6 @@
-// import React, { useEffect, useState } from "react";
 
-import { Input, Select } from "antd";
+import { jsx } from "@emotion/react";
+import { Form, Input, Select } from "antd";
 
 export interface User {
   id: string;
@@ -22,34 +22,39 @@ interface SearchPanelProps {
 
 export const SearchPanel = ({ users, param, setParam }: SearchPanelProps) => {
   return (
-    <form>
+    <Form layout={"inline"} style={{marginBottom: '2rem'}}>
       {/* setParam(Object.assign({}, param, {name: evt.target.value})) */}
-      <Input
-        type="text"
-        value={param.name}
-        onChange={(evt) =>
-          setParam({
-            ...param,
-            name: evt.target.value,
-          })
-        }
-      />
-      <Select
-        value={param.personId}
-        onChange={value =>
-          setParam({
-            ...param,
-            personId: value,
-          })
-        }
-      >
-        <option value={""}>负责人</option>
-        {users.map((user) => (
-          <option key={user.id} value={user.id}>
-            {user.name}
-          </option>
-        ))}
-      </Select>
-    </form>
+      <Form.Item>
+        <Input
+          placeholder="项目名"
+          type="text"
+          value={param.name}
+          onChange={(evt) =>
+            setParam({
+              ...param,
+              name: evt.target.value,
+            })
+          }
+        />
+      </Form.Item>
+      <Form.Item>
+        <Select
+          value={param.personId}
+          onChange={value =>
+            setParam({
+              ...param,
+              personId: value,
+            })
+          }
+        >
+          <option value={""}>负责人</option>
+          {users.map((user) => (
+            <option key={user.id} value={user.id}>
+              {user.name}
+            </option>
+          ))}
+        </Select>
+      </Form.Item>
+    </Form>
   );
 };
