@@ -49,5 +49,6 @@ export const http = async (endpoint: string, {data, token, headers, ...customCon
 
 export const useHttp = () => {
   const { user } = useAuth();
+  // utility type 的用法：用范型给它传入一个其他类型，然后 utility type 对这个类型进行某种操作
   return (...[endpoint, config]: Parameters<typeof http>) => http(endpoint, { ...config, token: user?.token });
 }

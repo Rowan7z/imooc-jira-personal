@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { loadDevTools } from 'jira-dev-tool';
+// 务必在 jira-dev-tool 后面引入，因为 jira-dev-tool 中也有些 antd 的样式
+import "antd/dist/antd.less"
 import { AppProviders } from 'context';
 
 const root = ReactDOM.createRoot(
