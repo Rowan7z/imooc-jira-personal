@@ -3,17 +3,17 @@ import { useEffect, useState } from "react";
 // 如果 value 为 null 或者 undefined，!value 返回 true
 export const isFalsy = (value: unknown) => (value === 0 ? false : !value);
 
+export const isVoid = (value: unknown) => value === undefined || value === null || value === '';
+
 // 在一个函数里，改变传入的对象本身是不好的
-export const cleanObject = (obj: object) => {
+export const cleanObject = (obj: {[key: string]: unknown}) => {
   // Object.assign({}, obj)
   const result = { ...obj };
 
   Object.keys(result).forEach((key) => {
-    // @ts-ignore
     const value = result[key];
     // 如果 value 为 null 或者 undefined，就应该删除这个 param，不向后端传
-    if (isFalsy(value)) {
-      // @ts-ignore
+    if (isVoid(value)) {
       delete result[key];
     }
   });
@@ -23,6 +23,7 @@ export const cleanObject = (obj: object) => {
 export const useMount = (callback: () => void) => {
   useEffect(() => {
     callback();
+    // TODO 依赖项里加上 callback 会造成无限循环，这个和 useCallback 以及 useMemo 有关系
   }, []);
 };
 
